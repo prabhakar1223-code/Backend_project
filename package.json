@@ -4,9 +4,16 @@
   "description": "this is the backend project",
   "license": "ISC",
   "author": "prabhakar shinde",
-  "type": "commonjs",
+  "type": "module",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon src/index.js"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  },
+  "dependencies": {
+    "prettier": "^3.9.8"
   }
 }
