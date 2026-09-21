@@ -1,0 +1,12 @@
+{
+  "name": "backend_c",
+  "version": "1.0.0",
+  "description": "this is the backend project",
+  "license": "ISC",
+  "author": "prabhakar shinde",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}
