@@ -26,3 +26,6 @@ const uploadCloud=async (localFilePath)=>{
     return null;
   }
 }
+
+
+export{cloudinary,uploadCloud}
