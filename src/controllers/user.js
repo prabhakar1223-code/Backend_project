@@ -1,3 +1,4 @@
+
 import { asyncHandler } from "../utils/asyncHandler.js";
 import { User } from "../model/user.js";
 import { uploadCloud } from "../utils/cloudinaryConfig.js";
@@ -28,26 +29,37 @@ const registerUser = asyncHandler(async (req, res) => {
 
     // Get uploaded image paths
     const avatarLocalPath = req.files?.avatar?.[0]?.path;
-    const coverImagePath = req.files?.coverImage?.[0]?.path;
+
+    let coverImageLocalPath;
+
+    if (
+        req.files &&
+        Array.isArray(req.files.coverImage) &&
+        req.files.coverImage.length > 0
+    ) {
+        coverImageLocalPath = req.files.coverImage[0].path;
+    }
 
     if (!avatarLocalPath) {
         throw new ApiError(400, "Avatar is required");
     }
 
-    if (!coverImagePath) {
-        throw new ApiError(400, "Cover image is required");
-    }
-
-    // Upload images to Cloudinary
+    // Upload avatar to Cloudinary
     const avatar = await uploadCloud(avatarLocalPath);
-    const coverImage = await uploadCloud(coverImagePath);
 
-    if (!avatar) {
+    if (!avatar?.url) {
         throw new ApiError(400, "Failed to upload avatar");
     }
 
-    if (!coverImage) {
-        throw new ApiError(400, "Failed to upload cover image");
+    // Upload cover image only if provided
+    let coverImage = null;
+
+    if (coverImageLocalPath) {
+        coverImage = await uploadCloud(coverImageLocalPath);
+
+        if (!coverImage?.url) {
+            throw new ApiError(400, "Failed to upload cover image");
+        }
     }
 
     // Create user
@@ -55,9 +67,9 @@ const registerUser = asyncHandler(async (req, res) => {
         fullname,
         email,
         password,
-        username,
+        username: username.toLowerCase(),
         avatar: avatar.url,
-        coverImage: coverImage.url
+        coverImage: coverImage?.url || ""
     });
 
     // Don't send password/refreshToken back

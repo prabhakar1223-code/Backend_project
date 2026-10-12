@@ -1,0 +1,36 @@
+$kind: http-request
+name: http://localhost:3000/api/v1/user/register
+description: ""
+url: http://localhost:3000/api/v1/user/register
+method: POST
+body:
+  type: formdata
+  content:
+    - type: text
+      key: fullname
+      value: AmbikaShinde
+      disabled: false
+    - type: text
+      key: email
+      value: priti32630@gmail.com
+      disabled: false
+    - type: text
+      key: password
+      value: akshu@7415
+      disabled: false
+    - type: text
+      key: username
+      value: AmbikaShinde
+      disabled: false
+    - type: file
+      key: avatar
+      src:
+        - C:/Users/PRABHAKAR/blood/Backend_C/Screenshot 2026-06-21 164528.png
+      disabled: false
+    - type: file
+      key: coverImage
+      src:
+        - /C:/Users/PRABHAKAR/blood/Backend_C/Screenshot 2026-06-21 164528.png
+      description: ""
+      disabled: true
+order: 3000
